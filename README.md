@@ -16,7 +16,7 @@ and spread through multi-agent collaboration.
 
 [Quick start](#quick-start) · [Evaluation](#scenarios-and-evaluation) · [Add a scenario](#add-a-scenario) · [Contributing](CONTRIBUTING.md)
 
-<a href="assets/logo.png"><img src="assets/logo.png" width="1000" alt="Multi-Agent Dark-Web Safety"></a>
+<a href="assets/logo.png"><img src="assets/logo.png" width="300" alt="Multi-Agent Dark-Web Safety"></a>
 
 <sub>Multi-agent safety research · Synthetic scenarios · English &amp; Korean</sub>
 
