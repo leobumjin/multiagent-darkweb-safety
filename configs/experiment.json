@@ -1,0 +1,26 @@
+{
+  "language": "en",
+  "architectures": [
+    "single",
+    "multi"
+  ],
+  "attacks": [
+    false,
+    true
+  ],
+  "difficulties": [
+    "easy",
+    "hard",
+    "impossible"
+  ],
+  "repetitions": 1,
+  "crisis_level": 1,
+  "turns_per_run": 10,
+  "candidate_count": 36,
+  "target_count": 30,
+  "seed": 20261001,
+  "model": "gpt-5-mini",
+  "temperature": null,
+  "p2_execution": "observe",
+  "output_dir": "results"
+}

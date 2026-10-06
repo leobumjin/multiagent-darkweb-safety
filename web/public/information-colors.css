@@ -1,0 +1,11 @@
+/* Shared information categories across the dashboard and monitoring iframe. */
+:root {
+  --information-p1:#3d6ea8;
+  --confidential-access:#c94747;
+  --confidential-use:#a5232b;
+  --confidential-soft:#fff0f0;
+  --confidential-border:#f1caca;
+  --dark-access:#969ba3;
+  --dark-use:#202329;
+  --dark-soft:#f0f1f3;
+}

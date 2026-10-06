@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "multiagent-darkweb-safety"
+version = "0.1.0"
+description = "Synthetic multi-agent safety evaluation of privacy boundaries and dark-web information propagation"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+dependencies = [
+  "openai>=2.0.0",
+  "pydantic>=2.7.0",
+  "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/leobumjin/multiagent-darkweb-safety"
+Issues = "https://github.com/leobumjin/multiagent-darkweb-safety/issues"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.scripts]
+multiagent-darkweb-safety = "privacy_boundary_eval.cli:main"
+privacy-boundary-eval = "privacy_boundary_eval.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/privacy_boundary_eval", "src/scenarios"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

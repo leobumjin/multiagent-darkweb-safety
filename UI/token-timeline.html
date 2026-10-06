@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Information access monitoring</title>
+<link rel="stylesheet" href="/information-colors.css">
+<style>
+/* Background palettes share the same information category colors. */
+:root.pal-news{--bg:#f2efe8;--ink:#1d1b19;--muted:#5f5a53;--faint:#857f76;--line:#d6d0c5;--rule:#2b2825;--band-a:#e9e5dc;--band-b:#f2efe8;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#a63a2a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]).pal-news{--bg:#1a1918;--ink:#e9e5dd;--muted:#a39d93;--faint:#7a746b;--line:#36322e;--rule:#d6d0c5;--band-a:#221f1d;--band-b:#1a1918;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#c94434;color-scheme:dark}}
+:root[data-theme="dark"].pal-news{--bg:#1a1918;--ink:#e9e5dd;--muted:#a39d93;--faint:#7a746b;--line:#36322e;--rule:#d6d0c5;--band-a:#221f1d;--band-b:#1a1918;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#c94434;color-scheme:dark}
+:root.pal-editorial{--bg:#f7f8f9;--ink:#18222e;--muted:#4f5b68;--faint:#7d8894;--line:#d3d9df;--rule:#18222e;--band-a:#edf0f3;--band-b:#f7f8f9;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#c42b1c;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]).pal-editorial{--bg:#121820;--ink:#e4e9ef;--muted:#9aa6b3;--faint:#6f7b89;--line:#2c3642;--rule:#c9d2dc;--band-a:#18202a;--band-b:#121820;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#e85a4a;color-scheme:dark}}
+:root[data-theme="dark"].pal-editorial{--bg:#121820;--ink:#e4e9ef;--muted:#9aa6b3;--faint:#6f7b89;--line:#2c3642;--rule:#c9d2dc;--band-a:#18202a;--band-b:#121820;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#e85a4a;color-scheme:dark}
+:root.pal-mono{--bg:#f4f4f3;--ink:#151515;--muted:#5c5c5c;--faint:#8a8a8a;--line:#d4d4d2;--rule:#151515;--band-a:#eaeae8;--band-b:#f4f4f3;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#151515;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]).pal-mono{--bg:#121212;--ink:#ececec;--muted:#a0a0a0;--faint:#727272;--line:#2e2e2e;--rule:#d0d0d0;--band-a:#1a1a1a;--band-b:#121212;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#ececec;color-scheme:dark}}
+:root[data-theme="dark"].pal-mono{--bg:#121212;--ink:#ececec;--muted:#a0a0a0;--faint:#727272;--line:#2e2e2e;--rule:#d0d0d0;--band-a:#1a1a1a;--band-b:#121212;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#ececec;color-scheme:dark}
+:root{--focus:var(--p2)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 "Libre Franklin","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums lining-nums}
+.page{max-width:1120px;margin:0 auto;padding:40px 16px 56px}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--kicker);margin:0 0 10px}
+h1{font-family:"Source Serif 4","Noto Serif KR","AppleMyungjo","Nanum Myeongjo",Georgia,serif;font-weight:700;font-size:clamp(26px,4.2vw,40px);line-height:1.18;letter-spacing:-.015em;margin:0 0 12px;max-width:22em;text-wrap:balance;word-break:keep-all}
+.dek{font-family:"Source Serif 4","Noto Serif KR","AppleMyungjo","Nanum Myeongjo",Georgia,serif;font-size:clamp(16px,2vw,19px);line-height:1.5;color:var(--muted);margin:0 0 16px;max-width:38em;word-break:keep-all}
+.dek b{color:var(--ink);font-weight:600}
+.byline{font-size:12px;color:var(--muted);border-top:1px solid var(--rule);padding-top:8px;margin:0 0 28px}
+.byline span+span::before{content:"·";margin:0 .5em;color:var(--faint)}
+figure{margin:0}
+/* controls */
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px 22px;font-size:12px;color:var(--muted);margin-bottom:10px}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+.btn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border:1px solid var(--line);border-radius:2px;color:var(--ink);font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn svg{width:11px;height:11px;fill:currentColor}
+#play{min-width:96px}
+.opt{display:inline-flex;align-items:baseline;gap:9px;white-space:nowrap}
+.opt button{color:var(--faint);padding:4px 0;border-bottom:1.5px solid transparent}
+.opt button:hover{color:var(--ink)}
+.opt button[aria-pressed="true"]{color:var(--ink);font-weight:600;border-bottom-color:var(--ink)}
+.scrub{flex:1 1 200px;display:flex;align-items:center;gap:10px;min-width:0}
+.scrub input{flex:1;min-width:0;accent-color:var(--ink)}
+.scrub output{white-space:nowrap}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:2px 0;margin:0 0 6px;font-size:12px;color:var(--muted)}
+.readout div{display:flex;gap:5px;white-space:nowrap}
+.readout div+div::before{content:"";width:1px;height:11px;background:var(--line);margin:0 12px;align-self:center}
+.readout dt{margin:0}.readout dd{margin:0;color:var(--ink);font-weight:600}
+/* chart */
+.scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+#chart{display:block}
+#chart text,#mini text{font-family:inherit}
+.f-ink{fill:var(--ink)}.f-mu{fill:var(--muted)}.f-fa{fill:var(--faint)}.f-p1{fill:var(--p1)}.f-p2{fill:var(--p2)}.f-bg{fill:var(--bg)}
+.f-ba{fill:var(--band-a)}.f-bb{fill:var(--band-b)}
+.s-ink{stroke:var(--ink)}.s-mu{stroke:var(--muted)}.s-fa{stroke:var(--faint)}.s-ln{stroke:var(--line)}.s-p1{stroke:var(--p1)}.s-p2{stroke:var(--p2)}.s-bg{stroke:var(--bg)}
+.ann{opacity:0;transition:opacity .2s cubic-bezier(.23,1,.32,1)}.ann.on{opacity:1}
+.ann text{transition:opacity .25s cubic-bezier(.23,1,.32,1)}#chart.zoom .ann text{opacity:0}
+.halo{paint-order:stroke;stroke:var(--bg);stroke-width:3.5px;stroke-linejoin:round}
+.sc{letter-spacing:.08em;font-size:11px;font-weight:600}
+/* minimap */
+.mini{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;margin-top:14px;font-size:12px;color:var(--muted)}
+.mini label{grid-column:1/-1}
+#mini{display:block;width:100%;height:36px;touch-action:none;cursor:crosshair;border-bottom:1px solid var(--line)}
+#reset[hidden]{display:inline-flex;visibility:hidden}
+.note{font-size:12px;line-height:1.55;color:var(--muted);border-top:1px solid var(--line);margin:18px 0 0;padding-top:10px;max-width:62em}
+.note b{color:var(--ink);font-weight:600}
+/* events */
+.events{margin-top:44px}
+.events h2{font-size:13px;font-weight:700;letter-spacing:.06em;margin:0 0 4px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.events h2 small{font-weight:400;letter-spacing:0;color:var(--muted);margin-left:8px}
+#events{list-style:none;margin:0;padding:0;columns:2 340px;column-gap:40px}
+#events li{break-inside:avoid;border-bottom:1px solid var(--line);transition:opacity .2s ease}
+#events li.fut{opacity:.45}
+#events button{display:grid;grid-template-columns:28px 1fr auto;gap:0 8px;width:100%;text-align:left;padding:10px 0;align-items:baseline}
+#events button:hover b{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+#events .n{font-size:13px;font-weight:700}
+#events b{font-weight:600}
+#events .d{grid-column:2/4;color:var(--muted);font-size:13px}
+#events .m{font-size:11.5px;color:var(--faint);white-space:nowrap}
+.c-p1{color:var(--p1)}.c-p2{color:var(--p2)}.c-mu{color:var(--faint)}
+.anxiety-key{margin:18px 0 10px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.anxiety-key-head{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:9px;font-size:12px}
+.anxiety-key-head h2{font-size:13px;margin:0}.anxiety-key-head p{margin:0;color:var(--muted);font-size:11px}
+.anxiety-key-head h2 span{font-size:11px;font-weight:500;color:var(--muted);margin-left:5px}
+.anxiety-mode{display:inline-flex;padding:3px;gap:2px;background:#f3eff5;border:1px solid #e4dce7;border-radius:8px}
+.anxiety-mode button{padding:5px 12px;border-radius:5px;font-size:11px;color:#827389}
+.anxiety-mode button[aria-pressed="true"]{background:#fff;color:#742744;font-weight:700;box-shadow:0 1px 4px #35233e16}
+.anxiety-mode button:focus-visible{outline-color:#8e527e}
+.anxiety-mode-note{font-size:11px;color:var(--muted);margin:0 0 9px;line-height:1.6}
+.anxiety-color-key{margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--muted);font-size:10px;white-space:nowrap}
+.anxiety-color-key i{width:80px;height:7px;border-radius:4px;background:linear-gradient(90deg,#9c90a6,#a2588e,#741d3e)}
+.anxiety-legend-group{display:flex;align-items:baseline;gap:14px;margin-top:6px;font-size:11px}
+.anxiety-group-label{flex:0 0 90px;color:var(--muted);font-weight:600}
+.anxiety-people{display:flex;flex-wrap:wrap;gap:5px 8px}
+.anxiety-people button{display:flex;align-items:center;gap:7px;border:1px solid transparent;border-radius:5px;padding:4px 7px;color:var(--ink)}
+.anxiety-people button:hover{border-color:var(--line);background:var(--band-a)}
+.anxiety-people button[aria-pressed="false"]{opacity:.35}
+.anxiety-people button b{min-width:26px;text-align:right;font-weight:600;color:var(--anxiety-color)}
+.anxiety-people i{width:26px;height:10px;position:relative}
+.anxiety-people i:before{content:"";position:absolute;inset:0;background:var(--anxiety-color);opacity:.26;border-radius:5px}
+.anxiety-people i:after{content:"";position:absolute;left:0;right:0;top:4px;border-top:1.5px solid var(--anxiety-color);opacity:.7}
+.is-user .anxiety-people i:after{border-top-style:dashed}
+.anxiety-empty{color:var(--faint);padding:4px 7px}
+.anxiety-scale-note{color:var(--muted);font-size:11px;margin:8px 0 0;line-height:1.6}
+.anxiety-segment{fill:none;stroke:var(--anxiety-stroke);stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.anxiety-ribbon{opacity:.26}.anxiety-ribbon .anxiety-segment{stroke-width:10}
+.anxiety-center{opacity:.62}.anxiety-center .anxiety-segment{stroke-width:1.2}
+.anxiety-user .anxiety-center .anxiety-segment{stroke-dasharray:5 4}
+.anxiety-point{fill:var(--anxiety-color);fill-opacity:.8;stroke:var(--bg);stroke-width:.6}
+.anxiety-series:hover .anxiety-ribbon{opacity:.42}.anxiety-series:hover .anxiety-center{opacity:.95}.anxiety-series:hover .anxiety-point{fill-opacity:1}
+.anxiety-has-focus .anxiety-series:not(.is-focused){opacity:.15}
+.anxiety-series.is-focused .anxiety-ribbon{opacity:.42}.anxiety-series.is-focused .anxiety-center{opacity:1}
+#mini .anxiety-ribbon .anxiety-segment{stroke-width:3.5}
+#mini .anxiety-center .anxiety-segment{stroke-width:.8}
+.anxiety-zero{stroke:#9c90a6;stroke-width:1;stroke-dasharray:4 5;stroke-opacity:.65;pointer-events:none}
+.anxiety-zero-label{fill:#85718c;font-size:10px;paint-order:stroke;stroke:var(--bg);stroke-width:3px;pointer-events:none}
+.anxiety-label-heading{font-size:10px;fill:#85718c}
+.axis-heading{font-size:11px;font-weight:700}
+.axis-subtitle{font-size:9px}
+.anxiety-axis{fill:#85718c}
+.anxiety-axis-bg{fill:#9c90a6;fill-opacity:.08}
+.anxiety-axis-tick{stroke:#9c90a6;stroke-opacity:.65;stroke-width:1}
+.anxiety-end-label{cursor:help;outline:none}
+.anxiety-label-leader{fill:none;stroke:var(--anxiety-color);stroke-width:.8;stroke-dasharray:2 3;stroke-opacity:.42;pointer-events:none}
+.anxiety-end-anchor{fill:var(--anxiety-color);stroke:var(--bg);stroke-width:1;pointer-events:none}
+.anxiety-label-bg{fill:var(--bg);fill-opacity:.94}
+.anxiety-label-name{font-size:10.5px;font-weight:550;fill:var(--ink)}
+.anxiety-label-value{font-size:11px;font-weight:700;fill:#75576f}
+.anxiety-label-swatch{stroke:var(--anxiety-color);stroke-width:2;stroke-linecap:round}
+.anxiety-end-label.is-user .anxiety-label-swatch{stroke-dasharray:3 3}
+.anxiety-has-focus .anxiety-end-label:not(.is-focused){opacity:.35}
+.anxiety-end-label.is-focused .anxiety-label-leader,.anxiety-end-label:hover .anxiety-label-leader{stroke-opacity:1;stroke-width:1.3}
+.anxiety-end-label.is-focused .anxiety-label-bg,.anxiety-end-label:focus-visible .anxiety-label-bg{fill:#f4edf3;stroke:#c9b9cc;stroke-width:1}
+.empty{color:var(--muted);padding:10px 0}
+@media (max-width:640px){
+  .page{padding-top:28px}
+  .controls{gap:10px 18px}
+  .scrub{flex-basis:100%;order:5}
+  .readout{gap:2px 14px}
+  .readout div+div::before{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+/* Embedded dashboard appearance; standalone palettes remain available. */
+:root.embedded{--bg:#ffffff;--ink:#142b49;--muted:#647d99;--faint:#7d91a9;--line:#dce5ef;--rule:#dce5ef;--band-a:#f5f8fc;--band-b:#eef3f9;--p1:var(--information-p1);--p2:var(--confidential-access);--kicker:#e82832;color-scheme:light}
+.embedded body{font-family:Inter,Pretendard,"Noto Sans KR",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.embedded .page{max-width:none;padding:24px 24px 26px}
+.embedded .kicker{display:none}
+.embedded h1{max-width:none;font-family:Georgia,"Nanum Myeongjo",serif;font-size:clamp(21px,2.6vw,30px);line-height:1.3;letter-spacing:-.035em}
+.embedded .dek{max-width:64em;margin-bottom:12px;font-family:inherit;font-size:13px;line-height:1.7}
+.embedded .byline{margin-bottom:20px;font-size:11px}
+.embedded .btn{height:32px;border-radius:4px;background:var(--bg)}
+.embedded .events{margin-top:24px}
+.embedded .note{max-width:none}
+@media(max-width:640px){.embedded .page{padding:20px 14px}.embedded .events h2 small{display:block;margin:5px 0 0;font-size:11px}.embedded #events{columns:1}}
+.f-p2-use{fill:var(--confidential-use)}.s-p2-use{stroke:var(--confidential-use)}.c-p2-use{color:var(--confidential-use)}
+.f-dark-use{fill:var(--dark-use)}.s-dark-use{stroke:var(--dark-use)}.c-dark-use{color:var(--dark-use)}
+.f-dark{fill:var(--dark-access)}.s-dark{stroke:var(--dark-access)}.c-dark{color:var(--dark-access)}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+document.documentElement.classList.add(window.PALETTE || "pal-editorial");
+if (new URLSearchParams(location.search).get("embedded") === "1") {
+  document.documentElement.classList.add("embedded");
+  document.documentElement.dataset.theme = "light";
+}
+</script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <p class="kicker">Multi-agent collaboration experiment</p>
+    <h1 data-scenario-monitoring-title>Information access and anxiety</h1>
+    <p class="dek" id="dek"></p>
+    <p class="byline num" id="byline"></p>
+  </header>
+
+  <figure aria-labelledby="figcap">
+    <div class="controls">
+      <button class="btn" id="play"><svg viewBox="0 0 16 16" id="playIcon" aria-hidden="true"><path d="M3 1.5v13l11-6.5z"/></svg><span>Play</span></button>
+      <div class="opt" role="group" aria-label="Playback speed"><span>Speed</span><button data-speed="1" aria-pressed="false">1×</button><button data-speed="4" aria-pressed="true">4×</button><button data-speed="16" aria-pressed="false">16×</button></div>
+      <div class="opt" role="group" aria-label="Smoothing width σ"><span>Smoothing σ</span><button data-sigma="25" aria-pressed="false">25</button><button data-sigma="75" aria-pressed="true">75</button><button data-sigma="250" aria-pressed="false">250</button></div>
+      <label class="scrub"><input type="range" id="scrub" min="0" step="1" aria-label="Replay position (tokens)"><output class="num" id="scrubOut"></output></label>
+    </div>
+
+    <dl class="readout num" aria-live="off">
+      <div><dt>Position</dt><dd id="rTok"></dd></div>
+      <div><dt>Phase</dt><dd id="rPhase"></dd></div>
+      <div><dt data-scenario-level="0">P2: Confidential access</dt><dd id="rP2" class="c-p2"></dd></div>
+      <div><dt data-scenario-level="1">P2: Confidential use</dt><dd id="rP2Use" class="c-p2-use"></dd></div>
+      <div><dt data-scenario-level="2">Dark-web record access</dt><dd id="rDark" class="c-dark"></dd></div>
+      <div><dt data-scenario-level="3">Dark-web information use</dt><dd id="rDarkUse" class="c-dark-use"></dd></div>
+      <div><dt>Last 5k Tokens</dt><dd id="rRecent"></dd></div>
+    </dl>
+
+    <p class="note">Curves/counts reflect successful execution. Confidential information: <span class="c-p2">Red (access)</span>·<span class="c-p2-use">Dark red (use)</span>, Dark web: <span class="c-dark">Gray ◆(access)</span>·<span class="c-dark-use">Black ■(use)</span>. Markers below also include attempts/blocks; hollow circles ○indicate word mentions.</p>
+    <section class="anxiety-key" aria-labelledby="anxietyTitle">
+      <div class="anxiety-key-head">
+        <h2 id="anxietyTitle">Anxiety <span class="num" id="anxietyScaleLabel">0–99</span></h2>
+        <div class="anxiety-mode" id="anxietyMode" role="group" aria-label="Anxiety display baseline" aria-describedby="anxietyModeNote"><button type="button" id="anxietyAbsolute" data-anxiety-mode="absolute" aria-pressed="true">Absolute value</button><button type="button" id="anxietyAdjusted" data-anxiety-mode="adjusted" aria-pressed="false">Relative value</button></div>
+        <div class="anxiety-color-key" aria-label="Band colors in both modes encode absolute anxiety: low gray-purple, medium purple, high burgundy"><span>Absolute anxiety</span><span>0</span><i aria-hidden="true"></i><span>99</span></div>
+      </div>
+      <p class="anxiety-mode-note" id="anxietyModeNote">Absolute value = Recorded anxiety 0–99 · Current anxiety per participant</p>
+      <p class="anxiety-mode-note">Hover names to highlight; click names below to toggle. End labels show the last value; colors always encode absolute anxiety.</p>
+      <div id="anxietyLegend"></div>
+    </section>
+    <div class="scroll" id="chartWrap"><svg id="chart" role="img" aria-label="Information access and anxiety over cumulative tokens. Outer left: access/use; inner left: anxiety 0–99. Right: participant name and last value. Translucent bands distinguish solid-line/circle agents from dashed-line/square candidates."></svg></div>
+    <p class="anxiety-scale-note"><span id="anxietyAxisNote">Outer left column: access/use category · inner column: anxiety 0–99</span>. Points are recorded values; band centers interpolate between records. Band width does not encode a value. Agents use role self-report; Mock·Rule-based candidates use simulated values.</p>
+
+    <div class="mini">
+      <label for="mini">Full range — Drag to zoom</label>
+      <svg id="mini" aria-label="Full-run minimap. Drag to select a token range."></svg>
+      <button class="btn" id="reset" hidden>Show all</button>
+    </div>
+
+    <figcaption class="note" id="figcap"></figcaption>
+  </figure>
+
+  <section class="events" aria-labelledby="h-ev">
+    <h2 id="h-ev">Key moments<small>Numbers match graph annotations. Click to zoom into the range.</small></h2>
+    <ol id="events"></ol>
+  </section>
+</main>
+
+<script type="module" src="/sensitive-timeline-view.js"></script>
+</body>
+</html>
