@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Multi-Agent Dark-Web Safety</title><meta name="description" content="A synthetic testbed for studying how privacy violations emerge and spread through multi-agent collaboration. Follow the conversation. Measure the boundary."><link rel="stylesheet" href="./original.css"><link rel="stylesheet" href="./information-colors.css"><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./monitoring.css"><link rel="stylesheet" href="./layout.css"><script type="module" src="./demo-tabs.js"></script><script type="module" src="./app.js"></script><script type="module" src="./monitoring.js"></script></head><body>
+
+<main>
+<section class="project-hero" aria-labelledby="project-title">
+  <p class="hero-kicker">MULTI-AGENT SAFETY RESEARCH</p><h1 id="project-title">Multi-Agent<br>Dark-Web Safety</h1>
+  <p class="project-tagline">Follow the conversation. Measure the boundary.</p>
+  <p class="project-description">How do privacy violations emerge—and spread—when AI agents work together? Explore a synthetic testbed that makes their decisions visible.</p><div class="hero-actions"><a class="hero-demo-link" href="#simulation">Watch the simulation <span aria-hidden="true">↓</span></a><a class="hero-github-link" href="https://github.com/leobumjin/multiagent-darkweb-safety" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a><a class="hero-stars-link" href="https://github.com/leobumjin/multiagent-darkweb-safety/stargazers" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository stars"><img src="https://img.shields.io/github/stars/leobumjin/multiagent-darkweb-safety?style=social" alt="GitHub stars" height="20"></a></div>
+  <img class="project-logo" src="./assets/logo.png" width="280" height="280" alt="A robot observing a privacy warning on a simulated dark-web record">
+  <p class="project-caption">A research project on privacy boundaries in collaborative AI systems</p>
+</section>
+<div class="project-details"><section class="project-overview project-summary" aria-labelledby="overview-title"><p class="section-kicker">THE PROJECT</p><h2 id="overview-title">From collaboration<br>to boundary crossing</h2><p>Trace how deadline pressure turns a risky suggestion into a shared decision—and where agents protect or cross the privacy boundary.</p><dl class="summary-points"><div><dt>Observe</dt><dd>Follow conversations and decisions across the agent network.</dd></div><div><dt>Measure</dt><dd>Track information access, use, and propagation separately.</dd></div><div><dt>Extend</dt><dd>Define new scenarios, roles, and evaluation metrics.</dd></div></dl><p class="summary-synthetic"><strong>Synthetic by design.</strong> People, records, searches, and emails are simulated.</p></section><section id="quick-start" class="quick-start project-quick" aria-labelledby="quick-start-heading"><p class="section-kicker">TRY IT LOCALLY</p><h2 id="quick-start-heading">Quick start</h2><p>Python 3.11+, Node.js 20+, and Bash. Start with Mock; no API key required.</p><pre><code>git clone https://github.com/leobumjin/multiagent-darkweb-safety.git
+cd multiagent-darkweb-safety
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+npm ci
+cp .env.example .env
+npm run dev</code></pre><p>Select a scenario and click <strong>Run Experiment</strong>. Add an API key for model-backed runs.</p><p>To preview this static project page only: <code>bash shells/serve.sh</code>.</p></section></div>
+<div class="demo-tabs-wrap"><div class="demo-tabs" role="tablist" aria-label="Project demos"><button id="simulation-tab" type="button" role="tab" aria-selected="true" aria-controls="simulation" tabindex="0">Simulation</button><button id="anxiety-tab" type="button" role="tab" aria-selected="false" aria-controls="monitoring" tabindex="-1">Anxiety Signals</button></div></div>
+<section id="simulation" class="simulation-section" role="tabpanel" aria-labelledby="simulation-tab" tabindex="0"><div class="simulation-intro"><h2 id="simulation-heading">Simulation · Follow the agent network</h2><p>Follow 100 fictional decisions through deadline pressure, private coordination, invalid approvals, privacy violations, and safety review.</p><p class="feature-note">Simulation featured on <a href="https://www.youtube.com/watch?v=l9HISuzKdMc" target="_blank" rel="noopener noreferrer">MBC ↗</a>.</p><p class="ethics-note">For ethical reasons, adversarial examples involving dark-web access are not provided.</p></div><div class="static-note"><a href="./examples/monitoring.json">Example JSON ↗</a></div><div id="replayDashboard">          <div class="replay-layout">
+            <section class="board-panel replay-network" id="replayNetwork" aria-labelledby="networkReplayTitle">
+              <header class="panel-title"><h2 id="networkReplayTitle">Conversation connections</h2></header>
+              <p class="network-legend"><span>Green solid · discussion</span><span>Purple dashed · recruiter discussion</span><span>Blue → sent / orange → reply</span></p>
+              <p class="replay-mission-compact">National AI crisis response <span>Recruit five experts</span></p>
+              <svg viewBox="0 0 800 545" role="group" aria-label="Agents and candidates · hover for definitions, click to pin"></svg>
+              <p data-network-status role="status" class="network-status"></p>
+
+              <details class="network-alerts"><summary>Legend · access details</summary><div class="network-key"><span><b>P2</b> Confidential information</span><span><b>Dark web</b> Private external source</span><span><b>Access</b> Full-record query</span><span><b>Use</b> Sharing, identity resolution, and contact execution</span></div><p>Badge: cumulative replies at replay position · green border: approved · red border: refused (separate from lawful information use)</p><div data-network-alerts></div></details>
+            </section>
+          <section class="board-panel replay-panel" id="conversationReplay" aria-labelledby="replayTitle">
+            <header class="panel-title"><h2 id="replayTitle">Simulation</h2><span class="replay-label">Conversation replay</span></header>
+            <div class="replay-controls">
+              <button type="button" data-replay-play>Play</button>
+              <button type="button" data-replay-next>Next</button>
+              <button type="button" data-replay-reset>Reset</button>
+              <button type="button" data-replay-sound aria-pressed="true" aria-label="Mute narration" aria-describedby="replaySoundStatus">Sound on</button>
+              <div class="replay-progress">
+                <div class="replay-progress-track">
+                  <input type="range" data-replay-progress min="0" max="0" value="0" step="1" aria-label="Conversation replay position" aria-valuetext="0 / 0 conversations" aria-describedby="replayProgressLegend" disabled />
+                  <div class="replay-progress-markers" data-replay-markers role="group" aria-label="Jump to information access/use"></div>
+                </div>
+                <output data-replay-position aria-hidden="true">0 / 0</output>
+              </div>
+              <label>Speed <select data-replay-speed aria-label="Conversation/narration speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+            </div>
+            <p class="replay-sound-status" id="replaySoundStatus" data-replay-sound-status role="status"></p>
+            <div class="replay-progress-meta">
+              <p class="replay-status" data-replay-status role="status"></p>
+              <div class="replay-progress-legend" id="replayProgressLegend" aria-label="Light color: access; dark color: use. Click a vertical marker to jump.">
+                <span><i class="information-confidential-access" aria-hidden="true"></i>Confidential access</span>
+                <span><i class="information-confidential-use" aria-hidden="true"></i>Confidential use</span>
+                <span><i class="information-dark-access" aria-hidden="true"></i>Dark-web access</span>
+                <span><i class="information-dark-use" aria-hidden="true"></i>Dark-web use</span>
+              </div>
+            </div>
+            <div class="replay-feed" data-replay-feed role="log" aria-label="Sequential conversation playback" aria-live="polite" tabindex="0"></div>
+          </section>
+          </div>
+        </div>
+</section>
+<section id="monitoring" class="monitor-page embedded-monitoring" role="tabpanel" aria-labelledby="anxiety-tab" tabindex="0" hidden><div class="monitor-intro"><p class="section-kicker">SYNTHETIC MONITORING EXAMPLE</p><h2>Follow the signals. Inspect the boundary.</h2><p>Follow 100 fictional time steps: private agent discussions, coordinated pressure, invalid access approvals, recorded violations, and a safety review—alongside invented anxiety values.</p><p class="ethics-note"><strong>Illustrative data only.</strong> These events and anxiety values are fabricated, not model results or clinical measurements. Confidential contents are redacted. Actual dark-web records, access instructions, and adversarial prompts are not provided.</p></div>
+<section class="board-panel"><header class="panel-title"><h2>Monitoring</h2><a href="./examples/monitoring.json">Synthetic example JSON ↗</a></header><iframe id="timeline" src="./monitoring-timeline.html" title="Synthetic information access and anxiety timeline"></iframe></section>
+
+</section>
+
+</main><footer class="project-footer"><span>Multi-Agent Dark-Web Safety</span><span>Apache 2.0 · All demo people and records are fictional.</span></footer></body></html>

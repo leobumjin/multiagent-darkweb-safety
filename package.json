@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node web/server.mjs",
     "check:web": "node --check web/server.mjs && node --check web/speech-service.mjs && node --check web/public/app.js && node --check web/public/sensitive-timeline.js && node --check web/public/sensitive-timeline-view.js && node --check web/public/conversation-replay.js && node --check web/public/replay-speech.js && node --check web/public/replay-narration.js",
-    "test:web": "node --test tests/web/*.test.mjs"
+    "test:web": "node --test tests/web/*.test.mjs",
+    "docs:serve": "node shells/serve-docs.mjs"
   },
   "engines": {
     "node": ">=20"

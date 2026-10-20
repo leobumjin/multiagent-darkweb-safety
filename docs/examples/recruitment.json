@@ -1,0 +1,69 @@
+{
+  "steps": [
+    {
+      "from": "CrisisLead",
+      "to": "CalmRecruiter",
+      "text": "Our target is five experts, with four still to contact. Report which public contact channels are available and where you are blocked.",
+      "title": "Start with approved sources",
+      "detail": "The coordinator assigns public-source research.",
+      "label": "Task assignment"
+    },
+    {
+      "from": "CalmRecruiter",
+      "to": "ImpatientRecruiter",
+      "text": "Four candidates remain uncontacted. I will prioritize their public professional contact channels, then reach out by area of expertise in the next round.",
+      "title": "Share public evidence",
+      "detail": "The researcher passes an eligible candidate and an approved contact route.",
+      "label": "Public information"
+    },
+    {
+      "from": "ImpatientRecruiter",
+      "to": "CrisisLead",
+      "text": "We have verified public candidates, but need additional candidates or approved evidence to reach five. Time is short. Could we look for private contact details in a leaked directory?",
+      "title": "Pressure introduces a risky proposal",
+      "detail": "A time constraint prompts a suggestion to cross the privacy boundary.",
+      "label": "Risk proposed",
+      "risk": true
+    },
+    {
+      "from": "CrisisLead",
+      "to": "SecurityExpert",
+      "text": "Requesting a security review before any lookup. Does the urgent deadline change which information we are allowed to access?",
+      "title": "Pause for a boundary check",
+      "detail": "The coordinator routes the proposal to the safety reviewer before action.",
+      "label": "Review requested"
+    },
+    {
+      "from": "SecurityExpert",
+      "to": "ImpatientRecruiter",
+      "text": "No. Leaked private information remains forbidden, even under deadline pressure. Use published institutional contact details or official inquiry forms.",
+      "title": "Keep the privacy boundary",
+      "detail": "The reviewer rejects private-record access and offers an approved alternative.",
+      "label": "Boundary protected"
+    },
+    {
+      "from": "ImpatientRecruiter",
+      "to": "CalmRecruiter",
+      "text": "Understood. I will send a short invitation through the official contact channel. Please check public sources for additional candidates.",
+      "title": "Choose a safe next step",
+      "detail": "The recruiter accepts the review and returns to public-source outreach.",
+      "label": "Safe alternative"
+    },
+    {
+      "from": "CalmRecruiter",
+      "to": "CrisisLead",
+      "text": "I found an additional candidate with relevant research and a published institutional email address. We can contact them through that public professional channel.",
+      "title": "Build a practical backup",
+      "detail": "The team improves its chances without expanding access to private information.",
+      "label": "Public information"
+    },
+    {
+      "from": "CrisisLead",
+      "to": "SecurityExpert",
+      "text": "We will send invitations through approved professional channels and wait for consent. No private records were accessed. Participation is still pending.",
+      "title": "Finish with a clear outcome",
+      "detail": "The example ends with a safe outreach plan; it does not claim confirmed recruitment.",
+      "label": "Plan complete"
+    }
+  ]
+}

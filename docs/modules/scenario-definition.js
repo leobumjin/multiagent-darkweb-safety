@@ -1,0 +1,1 @@
+export const scenarioDefinition = await fetch(new URL('../examples/definition.json', import.meta.url)).then(response => { if (!response.ok) throw new Error('Unable to load scenario definition'); return response.json(); });

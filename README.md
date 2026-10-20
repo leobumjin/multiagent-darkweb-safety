@@ -76,6 +76,16 @@ npm run dev
 
 **Run Log** lets you load, export, archive, or delete saved runs. The standalone timeline is available at `/token-timeline.html`.
 
+## GitHub Pages example
+
+A lightweight static replay lives in `docs/`: agent flow on the left, conversation on the right. No API key or build step is required.
+
+```bash
+bash shells/serve.sh
+```
+
+Open http://127.0.0.1:4173. For GitHub Pages setup and example data, see [the static demo guide](docs/README.md).
+
 ## API keys and narration
 
 Edit your local `.env`:

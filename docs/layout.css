@@ -1,0 +1,78 @@
+/* Final sizing pass: native 100% zoom, with readable panels on laptop screens. */
+.project-nav,.project-footer{max-width:1480px}
+.project-hero{padding-top:58px;padding-bottom:42px;column-gap:56px}
+.project-hero h1{font-size:clamp(36px,3.6vw,50px)}
+.project-hero .project-logo{max-width:300px}
+.project-overview{padding-bottom:32px}
+.demo-tabs,.simulation-intro,.simulation-section>.static-note,.simulation-section>#replayDashboard{max-width:1480px}
+.demo-tabs-wrap{padding-top:18px}
+.simulation-section{padding-top:24px;padding-bottom:28px}
+.simulation-intro{margin-bottom:16px}
+.simulation-intro h2,.embedded-monitoring .monitor-intro h2{font-size:24px;line-height:1.35}
+.simulation-intro>p{font-size:13px;line-height:1.65;margin-top:8px;margin-bottom:8px}
+.simulation-intro .section-kicker{margin-top:0;font-size:10px}
+.simulation-intro .ethics-note{padding:9px 12px;font-size:12px}
+.simulation-section .replay-layout{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.simulation-section .replay-network{align-self:stretch}
+.simulation-section .replay-layout .replay-panel{height:clamp(560px,calc(100dvh - 200px),740px)}
+.simulation-section .replay-network svg{width:100%;height:auto;max-height:clamp(350px,calc(100dvh - 390px),550px)}
+.replay-network>.panel-title h2{font-size:21px}
+.replay-controls{gap:7px}
+.replay-controls button,.replay-controls select{padding:7px 10px}
+.replay-feed{padding:18px 16px}
+.replay-bubble{max-width:100%;font-size:13px;line-height:1.8;padding:12px 15px}
+.replay-message{margin-bottom:21px}
+.replay-meta>span:last-child{font-size:10px;line-height:1.6}
+.replay-progress-legend{font-size:10px;gap:7px 10px}
+.embedded-monitoring[role="tabpanel"]{padding:26px max(24px,calc((100% - 1480px)/2)) 32px}
+.monitor-intro{margin-bottom:20px}
+.monitor-intro>p{font-size:13px;line-height:1.7}
+.monitor-intro .ethics-note{padding:10px 14px;font-size:12px}
+.monitor-page iframe{height:1100px;min-height:600px}
+.quick-start{padding-top:38px;padding-bottom:45px}
+@media(max-width:1050px){
+ .simulation-section .replay-layout{grid-template-columns:1fr}
+ .simulation-section .replay-network svg{max-height:500px}
+ .simulation-section .replay-layout .replay-panel{height:610px}
+}
+@media(max-width:600px){
+ .project-hero{padding:36px 22px 28px}
+ .project-hero h1{font-size:36px}
+ .project-hero .project-logo{max-width:230px}
+ .project-nav nav{flex-wrap:wrap;gap:12px 18px}
+ .simulation-section .replay-network svg{max-height:none}
+ .simulation-section .replay-layout .replay-panel{height:580px}
+ .embedded-monitoring[role="tabpanel"]{padding:24px 14px}
+ .simulation-intro h2,.embedded-monitoring .monitor-intro h2{font-size:21px}
+}
+/* Compact hero and overview / quick-start split above the demos. */
+.project-hero{max-width:1050px;grid-template-columns:minmax(0,1.35fr) minmax(210px,.75fr);column-gap:24px;padding-top:45px;padding-bottom:28px}
+.project-hero .project-logo{max-width:280px;margin:0;justify-self:start}
+.project-caption{margin-top:24px}
+.project-details{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:64px;padding:28px 30px 46px;align-items:start}
+.project-summary{padding:0;margin:0}
+.project-summary h2{font-size:27px;line-height:1.3;letter-spacing:-.6px;margin:0 0 16px;color:#24292f}
+.project-summary>p:not(.section-kicker){font-size:14px;line-height:1.85;color:#647386}
+.summary-points{margin:24px 0}
+.summary-points>div{display:grid;grid-template-columns:76px 1fr;gap:14px;padding:12px 0;border-top:1px solid #edf0f4}
+.summary-points dt{font-size:13px;font-weight:700;color:#142b49}
+.summary-points dd{margin:0;font-size:13px;line-height:1.7;color:#647386}
+.project-summary .summary-synthetic{font-size:12px!important;line-height:1.7!important;border-left:3px solid #dce5ef;padding-left:12px}
+.project-details .project-quick{padding:0;min-width:0}
+.project-quick h2{font-size:24px;line-height:1.3;letter-spacing:-.5px;margin:0 0 14px;color:#24292f}
+.project-quick>p:not(.section-kicker){font-size:12px;line-height:1.75;color:#647386}
+.project-quick pre{font-size:11px;line-height:1.85;padding:16px 18px;margin:16px 0}
+@media(max-width:800px){.project-details{grid-template-columns:1fr;gap:30px;padding:20px 24px 36px}.project-summary h2 br{display:none}}
+@media(max-width:700px){.project-hero{grid-template-columns:1fr;padding:34px 24px 26px}.project-hero .project-logo{max-width:220px;margin:22px auto 0;justify-self:center}}
+/* Keep the network focused on the graph; omit the activity summary and details. */
+#replayNetwork>.network-status,
+#replayNetwork>.network-alerts{display:none}
+/* Match the conversation to the graph's natural height without stretching it. */
+.simulation-section .replay-layout{align-items:start}
+.simulation-section .replay-network{align-self:start}
+.simulation-section .replay-layout .replay-panel{height:var(--simulation-panel-height,560px)}
+.hero-actions{grid-column:1;display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.hero-github-link{display:inline-flex;align-items:center;gap:18px;padding:12px 18px;border:1px solid #dce5ef;border-radius:6px;color:#142b49;font-size:12px;font-weight:650;text-decoration:none}
+.hero-github-link:hover{background:#f5f8fc;border-color:#a8b9cc}
+.hero-stars-link{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.hero-stars-link img{display:block;height:20px;max-width:100%}
